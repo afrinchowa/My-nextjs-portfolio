@@ -1,7 +1,10 @@
-"use client"
+"use client";
 
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+// import { usePathname } from "next/navigation";
+import brandLogo from "@/assets/logo.png";
+import Image from "next/image";
 
 type UserProps = {
   user?: {
@@ -11,10 +14,20 @@ type UserProps = {
   };
 };
 
-
 const Navbar = ({ session }: { session: UserProps | null }) => {
+  // const pathname = usePathname();
+
   return (
     <div className="w-[90%] mx-auto flex items-center justify-between bg-white border-b py-4">
+      <div className="flex items-center">
+        <div className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center gap-1">
+            <Image src={brandLogo} width={30} height={30} alt="brand logo" />
+            <span className="text-xl font-bold">NexaBlog</span>
+          </Link>
+        </div>
+      </div>
+
       <div className="flex items-center">
         <div className="relative lg:hidden">
           <div
@@ -48,7 +61,13 @@ const Navbar = ({ session }: { session: UserProps | null }) => {
               <Link href="/about">About Us</Link>
             </li>
             <li className="py-2 px-4 hover:bg-gray-100">
-              <Link href="/support">Support</Link>
+              <Link href="/blogs">Blogs</Link>
+            </li>
+            <li className="hover:text-gray-600">
+              <Link href="/contact-us">Contact Us</Link>
+            </li>
+            <li className="hover:text-gray-600">
+              <Link href="/dashboard">Dashboard</Link>
             </li>
           </ul>
         </div>
@@ -69,7 +88,10 @@ const Navbar = ({ session }: { session: UserProps | null }) => {
             <Link href="/about">About Us</Link>
           </li>
           <li className="hover:text-gray-600">
-            <Link href="/support">Support</Link>
+            <Link href="/blogs">Blogs</Link>
+          </li>
+          <li className="hover:text-gray-600">
+            <Link href="/contact-us">Contact Us</Link>
           </li>
           <li className="hover:text-gray-600">
             <Link href="/dashboard">Dashboard</Link>
@@ -78,15 +100,30 @@ const Navbar = ({ session }: { session: UserProps | null }) => {
       </div>
 
       <div className="flex items-center">
-        {session?.user ?<button onClick={()=>signOut()} className="border border-red-500 text-red-500 px-5 py-2 rounded-full hover:bg-red-500 hover:text-black transition duration-200">
-          Logout
-        </button>:
-        <Link
-          href="/login"
-          className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200"
-        >
-          Login
-        </Link>}
+        {session?.user ? (
+          <button
+            onClick={() => signOut()}
+            className="border border-red-500 text-red-500 px-5 py-2 rounded-full hover:bg-red-500 hover:text-black transition duration-200"
+          >
+            Logout
+          </button>
+        ) : (
+          <Link
+            href="/login"
+            className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200"
+          >
+            Login
+          </Link>
+        )}
+
+        <div>
+          <Link
+            href="/blogs/create"
+            className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200"
+          >
+            Post Blog
+          </Link>
+        </div>
       </div>
     </div>
   );
