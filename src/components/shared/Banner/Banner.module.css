@@ -1,8 +1,37 @@
 .banner_container {
-  background: url("../../../assets/banner-img.png");
-  height: 100vh;
+  background: url("../../../assets/banner-img.jpg");
+  height: 70vh;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
-  margin-top: 10px;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+}
+
+.left_content {
+  width: 50%;
+  color: white;
+  text-align: left;
+}
+
+.left_content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.right_image {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right_image img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
 }

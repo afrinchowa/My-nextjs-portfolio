@@ -2,9 +2,7 @@
 
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-// import { usePathname } from "next/navigation";
-import brandLogo from "@/assets/logo.png";
-import Image from "next/image";
+import { useState } from "react";
 
 type UserProps = {
   user?: {
@@ -15,29 +13,24 @@ type UserProps = {
 };
 
 const Navbar = ({ session }: { session: UserProps | null }) => {
-  // const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
-    <div className="w-[90%] mx-auto flex items-center justify-between bg-white border-b py-4">
-      <div className="flex items-center">
-        <div className="flex items-center space-x-2">
-          <Link href="/" className="flex items-center gap-1">
-            <Image src={brandLogo} width={30} height={30} alt="brand logo" />
-            <span className="text-xl font-bold">NexaBlog</span>
-          </Link>
-        </div>
-      </div>
-
-      <div className="flex items-center">
-        <div className="relative lg:hidden">
-          <div
-            tabIndex={0}
-            role="button"
+    <div className="w-full mx-auto flex items-center justify-between bg-white border-b py-4 px-6 shadow-md">
+      <div className="flex items-center space-x-6">
+        {/* Mobile Menu Button */}
+        <div className="lg:hidden">
+          <button
+            onClick={toggleMenu}
             className="p-2 rounded-md hover:bg-gray-100 focus:outline-none"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -49,81 +42,96 @@ const Navbar = ({ session }: { session: UserProps | null }) => {
                 d="M4 6h16M4 12h8m-8 6h16"
               />
             </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="absolute mt-3 z-10 p-2 shadow-md bg-white rounded-md w-52"
-          >
-            <li className="py-2 px-4 hover:bg-gray-100">
-              <Link href="/">Home</Link>
-            </li>
-            <li className="py-2 px-4 hover:bg-gray-100">
-              <Link href="/about">About Us</Link>
-            </li>
-            <li className="py-2 px-4 hover:bg-gray-100">
-              <Link href="/blogs">Blogs</Link>
-            </li>
-            <li className="hover:text-gray-600">
-              <Link href="/contact-us">Contact Us</Link>
-            </li>
-            <li className="hover:text-gray-600">
-              <Link href="/dashboard">Dashboard</Link>
-            </li>
-          </ul>
+          </button>
         </div>
+
+        {/* Logo */}
         <Link
           href="/"
-          className="ml-4 text-xl font-semibold text-gray-800 hover:text-gray-600"
+          className="text-2xl font-bold text-gray-800 hover:text-gray-600"
         >
-          NextAuth
+          My Portfolio
         </Link>
       </div>
 
-      <div className="hidden lg:flex">
-        <ul className="flex space-x-6 text-gray-800">
-          <li className="hover:text-gray-600">
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="lg:hidden absolute top-16 left-0 w-full bg-white shadow-lg rounded-md z-10">
+          <ul className="space-y-4 p-4 text-center">
+            <li>
+              <Link href="/" className="text-gray-800 hover:text-teal-500">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/projects" className="text-gray-800 hover:text-teal-500">
+                Projects
+              </Link>
+            </li>
+            <li>
+              <Link href="/blogs" className="text-gray-800 hover:text-teal-500">
+                Blogs
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="text-gray-800 hover:text-teal-500">
+                Contact 
+              </Link>
+            </li>
+            <li>
+              <Link href="/dashboard" className="text-gray-800 hover:text-teal-500">
+                Dashboard
+              </Link>
+            </li>
+          </ul>
+        </div>
+      )}
+
+      {/* Desktop Menu */}
+      <div className="hidden lg:flex space-x-6">
+        <ul className="flex items-center space-x-6 text-gray-800">
+          <li className="hover:text-teal-500">
             <Link href="/">Home</Link>
           </li>
-          <li className="hover:text-gray-600">
-            <Link href="/about">About Us</Link>
+          <li className="hover:text-teal-500">
+            <Link href="/projects">Projects</Link>
           </li>
-          <li className="hover:text-gray-600">
+          <li className="hover:text-teal-500">
             <Link href="/blogs">Blogs</Link>
           </li>
-          <li className="hover:text-gray-600">
-            <Link href="/contact-us">Contact Us</Link>
+          <li className="hover:text-teal-500">
+            <Link href="/contact">Contact </Link>
           </li>
-          <li className="hover:text-gray-600">
+          <li className="hover:text-teal-500">
             <Link href="/dashboard">Dashboard</Link>
           </li>
         </ul>
       </div>
 
-      <div className="flex items-center">
-        {session?.user ? (
+      {/* User Authentication and Post Blog Button */}
+      <div className="flex items-center space-x-4">
+        {session?.user? (
           <button
             onClick={() => signOut()}
-            className="border border-red-500 text-red-500 px-5 py-2 rounded-full hover:bg-red-500 hover:text-black transition duration-200"
+            className="border border-red-500 text-red-500 px-5 py-2 rounded-full hover:bg-red-500 hover:text-white transition duration-200"
           >
             Logout
           </button>
         ) : (
           <Link
             href="/login"
-            className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200"
+            className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-white transition duration-200"
           >
             Login
           </Link>
         )}
 
-        <div>
-          <Link
-            href="/blogs/create"
-            className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200"
-          >
-            Post Blog
-          </Link>
-        </div>
+        <Link
+          href="/blogs/create"
+          className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-white transition duration-200"
+        >
+          Post Blog
+        </Link>
       </div>
     </div>
   );

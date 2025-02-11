@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaUser, FaCog, FaHome } from "react-icons/fa";
+import { FaUser, FaCog, FaHome, FaPlus } from "react-icons/fa";
 
 const Sidebar = () => {
   return (
@@ -24,6 +24,13 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
+          <Link
+            href="/dashboard/add"
+            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700"
+          >
+            <FaPlus className="h-5 w-5" />
+            <span>Add Project</span>
+          </Link>
           <Link
             href="/dashboard/settings"
             className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700"
