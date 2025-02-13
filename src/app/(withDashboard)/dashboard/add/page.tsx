@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
-
+"use client";
 
 import { useState } from "react";
 import { redirect } from "next/navigation";
@@ -15,25 +14,28 @@ const AddProjectPage = () => {
     description: "",
   });
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.projectName]: e.target.value });
   };
 
-  const handleSubmit = async(e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const res= await fetch("http://localhost:5000/projects",{
+    const res = await fetch(
+      "https://my-portfolio-client-plum.vercel.app/api/projects",
+      {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-    })
-const projectInfo = await res.json();
-  if (projectInfo) {
-    redirect(`/projects/${projectInfo.id}`);
-  }
+      }
+    );
+    const projectInfo = await res.json();
+    if (projectInfo) {
+      redirect(`/projects/${projectInfo.id}`);
+    }
 
-  return projectInfo();
+    return projectInfo();
   };
 
   return (
@@ -45,7 +47,9 @@ const projectInfo = await res.json();
           </h2>
           <div className="grid grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Project Name</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Project Name
+              </label>
               <input
                 type="text"
                 name="projectName"
@@ -56,7 +60,9 @@ const projectInfo = await res.json();
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Client Name</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Client Name
+              </label>
               <input
                 type="text"
                 name="clientName"
@@ -67,7 +73,9 @@ const projectInfo = await res.json();
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Start Date</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Start Date
+              </label>
               <input
                 type="date"
                 name="startDate"
@@ -77,7 +85,9 @@ const projectInfo = await res.json();
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Deadline</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Deadline
+              </label>
               <input
                 type="date"
                 name="deadline"
@@ -87,7 +97,9 @@ const projectInfo = await res.json();
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Budget ($)</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Budget ($)
+              </label>
               <input
                 type="number"
                 name="budget"
@@ -99,7 +111,9 @@ const projectInfo = await res.json();
             </div>
           </div>
           <div className="my-5">
-            <label className="block text-sm font-medium text-gray-700">Project Image URL</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Project Image URL
+            </label>
             <input
               type="url"
               name="projectImage"
@@ -110,7 +124,9 @@ const projectInfo = await res.json();
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Description</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Description
+            </label>
             <textarea
               name="description"
               rows={4}

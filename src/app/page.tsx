@@ -6,21 +6,27 @@ import Skills from "@/components/Skills/Skills";
 
 const HomePage = async () => {
   // Fetch blogs
-  const blogsRes = await fetch("http://localhost:5000/blogs", {
-    next: {
-      revalidate: 30,
-    },
-  });
+  const blogsRes = await fetch(
+    "https://my-portfolio-client-plum.vercel.app/api/blogs",
+    {
+      next: {
+        revalidate: 30,
+      },
+    }
+  );
 
   const blogs = await blogsRes.json();
   console.log(blogs);
 
   // Fetch projects
-  const projectsRes = await fetch("http://localhost:5000/projects", {
-    next: {
-      revalidate: 30,
-    },
-  });
+  const projectsRes = await fetch(
+    "https://my-portfolio-client-plum.vercel.app/api/projects",
+    {
+      next: {
+        revalidate: 30,
+      },
+    }
+  );
 
   const projects = await projectsRes.json();
   console.log(projects);
@@ -28,10 +34,10 @@ const HomePage = async () => {
   return (
     <div>
       <Banner />
-      <Skills/>
+      <Skills />
       <LatestProjects projects={projects} />
       <LatestBlogs blogs={blogs} />
-      <DownloadResumeButton/>
+      <DownloadResumeButton />
     </div>
   );
 };

@@ -28,15 +28,15 @@ const BlogForm = () => {
             {/* Author Name */}
             <div>
               <label
-                htmlFor="author_name"
+                htmlFor="author"
                 className="block text-sm font-medium text-gray-700"
               >
                 Author Name
               </label>
               <input
                 type="text"
-                name="author_name"
-                id="author_name"
+                name="author"
+                id="author"
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500"
                 placeholder="Enter author name"
               />

@@ -4,9 +4,8 @@ export interface Blog {
   description: string;
   date: string;
   author: string;
- image: string;
+  image: string;
   total_likes: string;
-
 }
 export interface Project {
   id: string;
@@ -17,5 +16,4 @@ export interface Project {
   budget: string;
   projectImage: string;
   description: string;
-
 }
